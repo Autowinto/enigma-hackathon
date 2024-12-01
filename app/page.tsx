@@ -71,7 +71,7 @@ export default function Home() {
           <ASCIISlot id="d" slot={testSlot4} />
         </div>
       </div>
-      <div id="card-input" className="w-1/3 bg-gray-500 m-10 rounded-lg">
+      <div id="card-input" className="w-1/3 bg-slate-400 m-10 rounded-lg">
         <form className="flex flex-col pl-5 pr-5 pt-2 santa-form">
           <h1 className="self-center text-lg">Customize Your Card Below!</h1>
           <label>Title:</label>
@@ -106,7 +106,8 @@ export default function Home() {
               <div
                 key={index}
                 style={{
-                  fontSize: '5px',
+                  fontSize: '8px',
+                  marginBottom: '3rem',
                 }}
               >
                 <pre
