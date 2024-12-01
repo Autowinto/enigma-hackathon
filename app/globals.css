@@ -46,3 +46,11 @@ body {
   font-family: daydream, sans-serif;
 
 }
+
+.santa-form {
+  input {
+    margin-bottom: 1rem;
+    color: black;
+
+  }
+}
