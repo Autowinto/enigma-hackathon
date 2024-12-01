@@ -19,5 +19,9 @@ export async function sendCard(to: string, card: string, title: string): void {
     html:
     `<pre>${card}</pre>`,
   }
-  sg.send(msg)
+  sg.send(msg).then(() => {
+    console.log('Email sent')
+  }).catch((error) => {
+    console.error(error)
+  })
 }

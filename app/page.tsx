@@ -1,8 +1,7 @@
 'use client'
-import { promises as fs } from 'node:fs'
-import path from 'node:path'
-import Image from 'next/image'
+import { sendCard } from '@/app/services/sendCard.service'
 import { useEffect, useState } from 'react'
+import { twj } from 'tw-to-css'
 import getAsciiArray from './services/getAscii.service'
 
 export function ASCIISlot({ id, slot }) {
@@ -41,6 +40,7 @@ export default function Home() {
   const [value, setValue] = useState('a')
   const [title, setTitle] = useState('')
   const [message, setMessage] = useState('')
+  const [email, setEmail] = useState('')
 
   const [testSlot1, setTestSlot1] = useState('')
   const [testSlot2, setTestSlot2] = useState('')
@@ -54,14 +54,20 @@ export default function Home() {
     })
   }, [])
 
+  function handleCardSubmit(event) {
+    event.preventDefault()
+    const html = document.getElementById('card-preview')?.outerHTML
+    sendCard(email, html as string, title)
+  }
+
   return (
     <div className="h-screen flex gap-4 snow ">
       <h1 className="absolute ml-12 mt-20 text-3xl builder-title">ASCII Christmas Card Builder</h1>
-      <div id="card-preview" className="border-2 border-green-500 bg-gray-300 h-3/5 w-3/5 m-10 my-auto grid grid-rows-[auto_1fr] relative">
+      <div style={twj('border-2 border-green-500 bg-gray-300 h-3/5 w-3/5 m-10 my-auto grid grid-rows-[auto_1fr] relative')} id="card-preview" className="">
         <div className="text-center text-black">
           { title}
         </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black w-full">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black w-full text-center">
           {message}
         </div>
         <div className="grid grid-cols-2 grid-rows-2">
@@ -71,21 +77,21 @@ export default function Home() {
           <ASCIISlot id="d" slot={testSlot4} />
         </div>
       </div>
-      <div id="card-input" className="w-1/3 bg-gray-500 m-10 rounded-lg">
-        <form className="flex flex-col pl-5 pr-5 pt-2 santa-form">
+      <div id="card-input" className="w-1/4 bg-gray-500 m-10 rounded-lg">
+        <form onSubmit={handleCardSubmit} className="flex flex-col pl-5 pr-5 pt-2 santa-form">
           <h1 className="self-center text-lg">Customize Your Card Below!</h1>
           <label>Title:</label>
           <input id="3" onInput={v => setTitle(v.currentTarget.value)} type="text" className="peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg" />
-          {' '}
+
           <label>Message:</label>
           <input id="3" type="text" onInput={v => setMessage(v.currentTarget.value)} className="peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg" />
-          {' '}
+
+          <label>Recipient E-Mail:</label>
+          <input id="3" type="email" onInput={v => setEmail(v.currentTarget.value)} className="peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:bg-white focus:drop-shadow-lg" />
+
           <label>Placement:</label>
           <select
-            style={{
-              color: 'black',
-              marginBottom: '1rem',
-            }}
+            className="rounded-md h-10 text-black px-4 "
             value={value}
             onChange={e => setValue(e.target.value)}
           >
@@ -93,6 +99,14 @@ export default function Home() {
             <option value="b">Top-Right</option>
             <option value="c">Bottom-Left</option>
             <option value="d">Bottom-Right</option>
+          </select>
+          <label>ASCII:</label>
+          <select className="rounded-md h-10 text-black px-4">
+            {asciiArray.map((ascii, index) => (
+              <option key={index} value={ascii}>
+                {ascii}
+              </option>
+            ))}
           </select>
 
           <div
@@ -134,6 +148,7 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <button className="rounded bg-white text-black mt-4 text-2xl p-3" type="submit">Send Christmas Card!</button>
         </form>
       </div>
     </div>
