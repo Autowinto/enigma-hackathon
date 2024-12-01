@@ -64,13 +64,13 @@ export default function Home() {
     <div className="h-screen flex gap-4 snow ">
       <h1 className="absolute ml-12 mt-20 text-3xl builder-title">ASCII Christmas Card Builder</h1>
       <div style={twj('border-2 border-green-500 bg-gray-300 h-3/5 w-3/5 m-10 my-auto grid grid-rows-[auto_1fr] relative')} id="card-preview" className="">
-        <div className="text-center text-black">
+        <div style={twj('text-center text-black')}>
           { title}
         </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black w-full text-center">
+        <div style={twj('absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black w-full')}>
           {message}
         </div>
-        <div className="grid grid-cols-2 grid-rows-2">
+        <div style={twj('grid grid-cols-2 grid-rows-2')}>
           <ASCIISlot id="a" slot={testSlot1} />
           <ASCIISlot id="b" slot={testSlot2} />
           <ASCIISlot id="c" slot={testSlot3} />
@@ -110,10 +110,7 @@ export default function Home() {
           </select>
 
           <div
-            className="flex text-center overflow-y-scroll flex-col p-5"
-            style={{
-              height: '500px',
-            }}
+            style={twj('flex h-96 text-center overflow-y-scroll flex-col p-5')}
           >
             { asciiArray.map((ascii, index) => (
 
@@ -140,7 +137,7 @@ export default function Home() {
                         break
                     }
                   }}
-                  className="text-black"
+                  style={twj('text-black')}
                 >
                   {ascii}
                 </pre>
