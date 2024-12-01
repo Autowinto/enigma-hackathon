@@ -48,7 +48,7 @@ export default function Home() {
             {title}
           </span>
         </div>
-        <div className="grid grid-cols-2 grid-rows-2 h-full">
+        <div className="grid grid-cols-2 grid-rows-2">
           <ASCIISlot id="a" />
           <ASCIISlot id="b" />
           <ASCIISlot id="c" />
