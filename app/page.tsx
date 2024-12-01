@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
-export function ASCIISlot({ id }) {
+export function ASCIISlot({ id, slot }) {
   const first = ''
   const second = ''
 
@@ -10,25 +10,25 @@ export function ASCIISlot({ id }) {
     case 'a':
       return (
         <div className="relative">
-          <pre className="absolute text-black">TESTSLOT</pre>
+          <pre className="absolute text-black">{slot}</pre>
         </div>
       )
     case 'b':
       return (
         <div className="relative">
-          <pre className="absolute right-0 text-black">TESTSLOT</pre>
+          <pre className="absolute right-0 text-black">{slot}</pre>
         </div>
       )
     case 'c':
       return (
         <div className="relative">
-          <pre className="absolute bottom-0 text-black">TESTSLOT</pre>
+          <pre className="absolute bottom-0 text-black">{slot}</pre>
         </div>
       )
     case 'd':
       return (
         <div className="relative">
-          <pre className="absolute bottom-0 right-0 text-black">TESTSLOT</pre>
+          <pre className="absolute bottom-0 right-0 text-black">{slot}</pre>
         </div>
       )
   }
@@ -38,6 +38,13 @@ export default function Home() {
   const [value, setValue] = useState('a')
   const [title, setTitle] = useState('')
   const [message, setMessage] = useState('')
+
+  const [testSlot1, setTestSlot1] = useState('')
+  const [testSlot2, setTestSlot2] = useState('')
+  const [testSlot3, setTestSlot3] = useState('')
+  const [testSlot4, setTestSlot4] = useState('')
+
+  const [asciiArray, setAsciiArray] = useState([])
 
   return (
     <div className="h-screen flex gap-4 snow ">
@@ -50,10 +57,10 @@ export default function Home() {
           {message}
         </div>
         <div className="grid grid-cols-2 grid-rows-2">
-          <ASCIISlot id="a" />
-          <ASCIISlot id="b" />
-          <ASCIISlot id="c" />
-          <ASCIISlot id="d" />
+          <ASCIISlot id="a" slot={testSlot1} />
+          <ASCIISlot id="b" slot={testSlot2} />
+          <ASCIISlot id="c" slot={testSlot3} />
+          <ASCIISlot id="d" slot={testSlot4} />
         </div>
       </div>
       <div id="card-input" className="w-1/4 bg-gray-500 m-10 rounded-lg">
@@ -78,6 +85,36 @@ export default function Home() {
             <option value="c">Bottom-Left</option>
             <option value="d">Bottom-Right</option>
           </select>
+
+          <div>
+            { asciiArray.map((ascii, index) => (
+
+              <div key={index} className="flex gap-2">
+                <pre
+                  onClick={() => {
+                    switch (value) {
+                      case 'a':
+                        setTestSlot1(ascii)
+                        break
+                      case 'b':
+                        setTestSlot2(ascii)
+                        break
+                      case 'c':
+                        setTestSlot3(ascii)
+                        break
+                      case 'd':
+                        setTestSlot4(ascii)
+                        break
+                    }
+                  }}
+                  className="text-black"
+                >
+                  {ascii}
+                </pre>
+
+              </div>
+            ))}
+          </div>
         </form>
       </div>
     </div>
