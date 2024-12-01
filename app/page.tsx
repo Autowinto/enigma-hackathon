@@ -12,25 +12,53 @@ export function ASCIISlot({ id, slot }) {
     case 'a':
       return (
         <div className="relative">
-          <pre className="absolute text-black">{slot}</pre>
+          <pre
+            className="absolute text-black"
+            style={{
+              fontSize: '8px',
+            }}
+          >
+            {slot}
+          </pre>
         </div>
       )
     case 'b':
       return (
         <div className="relative">
-          <pre className="absolute right-0 text-black">{slot}</pre>
+          <pre
+            className="absolute right-0 text-black"
+            style={{
+              fontSize: '8px',
+            }}
+          >
+            {slot}
+          </pre>
         </div>
       )
     case 'c':
       return (
         <div className="relative">
-          <pre className="absolute bottom-0 text-black">{slot}</pre>
+          <pre
+            className="absolute bottom-0 text-black"
+            style={{
+              fontSize: '8px',
+            }}
+          >
+            {slot}
+          </pre>
         </div>
       )
     case 'd':
       return (
         <div className="relative">
-          <pre className="absolute bottom-0 right-0 text-black">{slot}</pre>
+          <pre
+            className="absolute bottom-0 right-0 text-black"
+            style={{
+              fontSize: '8px',
+            }}
+          >
+            {slot}
+          </pre>
         </div>
       )
   }
@@ -77,7 +105,7 @@ export default function Home() {
           <ASCIISlot id="d" slot={testSlot4} />
         </div>
       </div>
-      <div id="card-input" className="w-1/4 bg-slate-400 m-10 rounded-lg">
+      <div id="card-input" className="w-1/3 bg-slate-400 m-10 rounded-lg">
         <form onSubmit={handleCardSubmit} className="flex flex-col pl-5 pr-5 pt-2 santa-form">
           <h1 className="self-center text-lg">Customize Your Card Below!</h1>
           <label>Title:</label>
@@ -101,13 +129,6 @@ export default function Home() {
             <option value="d">Bottom-Right</option>
           </select>
           <label>ASCII:</label>
-          <select className="rounded-md h-10 text-black px-4">
-            {asciiArray.map((ascii, index) => (
-              <option key={index} value={ascii}>
-                {ascii}
-              </option>
-            ))}
-          </select>
 
           <div
             style={twj('flex h-96 text-center overflow-y-scroll flex-col p-5')}
