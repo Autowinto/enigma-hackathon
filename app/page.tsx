@@ -1,6 +1,9 @@
 'use client'
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import getAsciiArray from './services/getAscii.service'
 
 export function ASCIISlot({ id, slot }) {
   const first = ''
@@ -43,8 +46,13 @@ export default function Home() {
   const [testSlot2, setTestSlot2] = useState('')
   const [testSlot3, setTestSlot3] = useState('')
   const [testSlot4, setTestSlot4] = useState('')
+  const [asciiArray, setAsciiArray] = useState<string[]>([])
 
-  const [asciiArray, setAsciiArray] = useState([])
+  useEffect(() => {
+    getAsciiArray().then((asciiArray) => {
+      setAsciiArray(asciiArray)
+    })
+  }, [])
 
   return (
     <div className="h-screen flex gap-4 snow ">
@@ -63,7 +71,7 @@ export default function Home() {
           <ASCIISlot id="d" slot={testSlot4} />
         </div>
       </div>
-      <div id="card-input" className="w-1/4 bg-gray-500 m-10 rounded-lg">
+      <div id="card-input" className="w-1/3 bg-gray-500 m-10 rounded-lg">
         <form className="flex flex-col pl-5 pr-5 pt-2 santa-form">
           <h1 className="self-center text-lg">Customize Your Card Below!</h1>
           <label>Title:</label>
@@ -76,6 +84,7 @@ export default function Home() {
           <select
             style={{
               color: 'black',
+              marginBottom: '1rem',
             }}
             value={value}
             onChange={e => setValue(e.target.value)}
@@ -86,10 +95,20 @@ export default function Home() {
             <option value="d">Bottom-Right</option>
           </select>
 
-          <div>
+          <div
+            className="flex text-center overflow-y-scroll flex-col p-5"
+            style={{
+              height: '500px',
+            }}
+          >
             { asciiArray.map((ascii, index) => (
 
-              <div key={index} className="flex gap-2">
+              <div
+                key={index}
+                style={{
+                  fontSize: '5px',
+                }}
+              >
                 <pre
                   onClick={() => {
                     switch (value) {
